@@ -73,7 +73,7 @@ function UserLogin() {
   return (
     <>
       <div className='flex justify-center items-center my-10 '>
-        <div className='bg-green-200 w-100 p-5 border-2 border-black rounded-lg'>
+        <div className='bg-green-200 md:w-100 w-90 p-3 border-2 border-black rounded-lg'>
 
           {/* Form */}
           <form onSubmit={handleSubmit(submitHandler)}>
