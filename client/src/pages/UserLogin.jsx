@@ -41,6 +41,7 @@ function UserLogin() {
         if (data.success) {
           alert("Logged in successfully");
           setIsLoggedin(true);
+          // localStorage.setItem("isLoggedin","true");
           getUserData();
           navigate('/');
         } else {
@@ -72,14 +73,19 @@ function UserLogin() {
 
   return (
     <>
-      <div className='flex justify-center items-center my-10 '>
-        <div className='bg-green-200 md:w-100 w-90 p-3 border-2 border-black rounded-lg'>
-
+      <div className='flex justify-center items-center my-10'>
+        <div className='bg-blue-50 md:w-160 w-90 p-2 shadow-blue-600 rounded-lg relative flex justify-between items-center'>
+          <div className='md:w-100'>
+            {state ==='Sign Up'? <img src="/public/Sign up-pana.svg" alt="login" />:
+            <img src="/public/Login-pana.svg"/> }
+            
+          </div>
+          <div>
           {/* Form */}
           <form onSubmit={handleSubmit(submitHandler)}>
-            <h1 className='text-3xl font-bold font-serif text-center'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</h1>
-            <p className='text-center p-3'>{state === 'Sign Up' ? '..Create New Account..' : '..Login to your Existing Account..'}</p>
-            <div className='m-5'>
+            <h1 className='text-3xl p-2 font-bold font-serif text-center'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</h1>
+            <p className='text-center p-2'>{state === 'Sign Up' ? '..Create New Account..' : '..Login to your Existing Account..'}</p>
+            <div className='m-3'>
 
               {/* Username on;y for sign up */}
               {state === 'Sign Up' && (
@@ -152,6 +158,7 @@ function UserLogin() {
                 <button className='text-blue-600 cursor-pointer underline hover:text-blue-800' onClick={() => { setState('Sign Up') }}>Sign Up Here</button>
               </div>
             )}
+            </div>
         </div>
       </div>
     </>

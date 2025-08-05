@@ -14,6 +14,45 @@
     /* height: ; */
 }
 
+.my-soul-regular {
+  font-family: "My Soul", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.typing-text {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.cursor::after {
+  content: '|';
+  animation: blink 1s ease-in-out step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+
+
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.allura-regular {
+  font-family: "Allura", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .img {
     background-image: url('./images/bgimage.webp');
     width: 100%;

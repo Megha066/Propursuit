@@ -7,17 +7,25 @@ function PredictForm() {
   const [formData, setFormData] = useState({});
   const [result, setResult] = useState("");
 
+  // Correct field names that match backend .py files
   const getFields = () => {
     if (cls === "10") {
-      return ["IQ", "BENGALI", "ENGLISH", "MATHEMATICS", "BIOLOGY", "PHYSICAL SCIENCE", "HISTORY", "GEOGRAPHY"];
+      return ["IQ", "MATH", "ENGLISH", "SCIENCE", "HISTORY", "GEOGRAPHY", "HINDI", "BENGALI"];
     } else if (stream === "Science") {
-      return ["PHYSICS", "CHEMISTRY", "BIOLOGY", "MATHEMATICS", "COMPUTER SCIENCE", "ENGLISH"];
+      return ["IQ", "ENGLISH", "MATH", "PHYSICS", "CHEMISTRY", "BIOLOGY", "COMPUTER SCIENCE"];
     } else if (stream === "Commerce") {
-      return ["ACCOUNTANCY", "BUSINESS STUDIES", "ECONOMICS", "MATHEMATICS", "ENGLISH"];
+      return ["IQ", "ENGLISH", "MATH", "ACCOUNTANCY", "ECONOMICS", "BUISNESS STUDIES", "COMPUTER APPLICATION"];
     } else if (stream === "Arts") {
-      return ["HISTORY", "GEOGRAPHY", "POLITICAL SCIENCE", "ECONOMICS", "PSYCHOLOGY", "ENGLISH"];
+      return ["IQ", "ENGLISH", "HISTORY", "GEOGRAPHY", "POLITICAL SCIENCE", "ECONOMICS", "PSYCHOLOGY"];
     }
     return [];
+  };
+
+  const getEndpoint = () => {
+    if (cls === "10") return "predict-10";
+    if (stream === "Science") return "predict-science";
+    if (stream === "Commerce") return "predict-commerce";
+    return ""; // Arts not handled in Flask yet
   };
 
   const handleChange = (e) => {
@@ -31,19 +39,14 @@ function PredictForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const endpoint = getEndpoint();
+    if (!endpoint) {
+      setResult("Selected stream is not supported yet.");
+      return;
+    }
+
     try {
-      const fieldNames = getFields();
-      const values = fieldNames.map((field, index) => {
-        const val = formData[field];
-        if (val === "" || val === undefined) throw new Error(`Missing value for ${field}`);
-
-        return field === "IQ" ? parseFloat(val) : parseInt(val);
-      });
-
-      const res = await axios.post("http://127.0.0.1:5000/predict", {
-        data: values
-      });
-
+      const res = await axios.post(`http://127.0.0.1:5000/${endpoint}`, formData);
       setResult(res.data.prediction);
     } catch (err) {
       console.error("Prediction failed:", err.message);
@@ -56,7 +59,6 @@ function PredictForm() {
       <h2 className="text-xl font-semibold mb-4">Stream Prediction</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Class Selector */}
         <select value={cls} onChange={(e) => {
           setCls(e.target.value);
           setStream("None");
@@ -67,20 +69,19 @@ function PredictForm() {
           <option value="12">Class 12</option>
         </select>
 
-        {/* Stream Selector for Class 12 */}
         {cls === "12" && (
           <select value={stream} onChange={(e) => {
             setStream(e.target.value);
             setFormData({});
             setResult("");
           }} className="p-2 border rounded w-full">
+            <option value="None" disabled>Select Stream</option>
             <option value="Science">Science</option>
             <option value="Commerce">Commerce</option>
             <option value="Arts">Arts</option>
           </select>
         )}
 
-        {/* Marks Inputs */}
         {getFields().map((field) => (
           <input
             key={field}
@@ -100,7 +101,6 @@ function PredictForm() {
         </button>
       </form>
 
-      {/* Show prediction */}
       {result && <p className="mt-4 text-green-600 font-semibold">Prediction: {result}</p>}
     </div>
   );

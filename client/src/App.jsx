@@ -9,48 +9,16 @@ import Mentorship from './pages/Mentorship'
 import { Routes, Route } from 'react-router-dom'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Circle from './components/Circle'
 
 
 
 function App() {
-  // const router = createBrowserRouter([
-  //   {
-  //     path: '/',
-  //     element: <Layout />,
-  //     children: [
-  //       {
-  //         path: '/',
-  //         element: <Home />
-  //       },
-  //       {
-  //         path: '/Assessment',
-  //         element: <Assessment />
-  //       },
-  //       {
-  //         path: '/Routetree',
-  //         element: <Routetree />
-  //       },
-  //       {
-  //         path: '/Mentorship',
-  //         element: <Mentorship />
-  //       },
-  //       {
-  //         path: "/login",
-  //         element: <UserLogin />
-  //       },
-  //       {
-  //         path: "/signup",
-  //         element: <Signup />
-  //       }
-  //     ]
-  //   }
-
-  // ])
-
   return (
     <>
     <ToastContainer/>
       <Navbar />
+       
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<UserLogin/>} />
@@ -59,6 +27,7 @@ function App() {
         <Route path='/Mentorship' element={<Mentorship/>} />
         <Route path='/reset-password' element={<ResetPassword />} />
       </Routes>
+      <Circle/>
       <Footer/>
     </>
 

@@ -1,28 +1,34 @@
 import React, { useContext } from 'react'
 import { AppContent } from '../context/appContext'
+import TypingEffect from '../components/TypingEffect';
+
 
 function Home() {
   const { isLoggedin } = useContext(AppContent);
-  const { userData } = useContext(AppContent)
+  const { userData } = useContext(AppContent);
 
   return (
     <>
-      <div className="relative">
-        <div className="absolute inset-0 bg-cover bg-center blur-sm brightness-50 img"></div>
+    
+      <div className='flex justify-between pt-10 m-auto items-center w-[80%] shadow'>
         
-        <div className='relative z-10 flex justify-center items-center min-h-screen'>
-          <div className='bg-white bg-opacity-80 rounded-lg  p-6 md:p-10 shadow-lg wt'>
-            <div>
-              <p className='libertinus-mono-regular text-center md:text-xl font-bold'>Hello {userData ? userData.name : 'User'}</p>
-              <h1 className='libertinus-mono-regular p-3 text-center md:text-3xl font-bold'>Welcome to Claripath</h1>
-              <p className='text-center text-lg text-green-700 font-semibold'>
-                {isLoggedin ? "You're logged in!" : ""}
-              </p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium magni quibusdam totam similique reprehenderit dolorum perspiciatis, obcaecati est aspernatur porro?</p>
-            </div>
-          </div>
+        {/* <div className="absolute inset-0 bg-cover bg-center blur-sm brightness-50 img"></div> */}
+
+        <div className='w-[50%]'>
+          {/* <h1 className='my-soul-regular p-3 text-center md:text-3xl font-bold'>Welcome to Claripath</h1> */}
+          <h1 className='text-5xl font-bold text-gray-800 p-3 my-soul-regular mx-5'>
+            Still thinking: Science, Commerce, or Arts?
+          </h1>
+          <p className='p-3 allura-regular text-left font-bold mx-5 text-xl'>Hello {userData ? userData.name : 'User'}!</p>
+          {/* <p className='tm-5 shadows-into-light-regular'>Here is Your One Step solution where You can test Your IQ, and Based on your IQ and previous boards marks you will get Best Suited Stream for you Also.</p> */}
+          <TypingEffect text="Here is Your One Step solution where You can test Your IQ, and Based on your IQ and previous boards marks you will get Best Suited Stream for you Also." />
+          <p className='font-bold p-3 flex gap-5'>Scroll for More details
+            <img width={15} src="/public/downArrow.svg" alt="" />
+          </p>
         </div>
-      </div>
+       <div><img width={500} src="/public/SEO-pana.png" alt="" /></div>
+          
+       </div>
      
         <div className='flex justify-center md:gap-10 gap-5 items-center m-10 p-2 w-[90%]'>
           <div className='w-[500px] box hide-scrollbar'>
