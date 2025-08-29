@@ -21,7 +21,7 @@ const TypingEffect = ({ text, speed = 50 }) => {
   }, [text, speed]);
 
   return (
-    <p className="typing-text m-3 shadows-into-light-regular">
+    <p className="typing-text p-3 m-3 shadows-into-light-regular">
       {displayedText}
       <span className="cursor" />
     </p>

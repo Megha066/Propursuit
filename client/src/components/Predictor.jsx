@@ -10,13 +10,13 @@ function PredictForm() {
   // Correct field names that match backend .py files
   const getFields = () => {
     if (cls === "10") {
-      return ["IQ", "MATH", "ENGLISH", "SCIENCE", "HISTORY", "GEOGRAPHY", "HINDI", "BENGALI"];
+      return ["IQ", "Bengali", "English", "Math", "Biology", "Physical_Science", "History", "Geography"];
     } else if (stream === "Science") {
       return ["IQ", "ENGLISH", "MATH", "PHYSICS", "CHEMISTRY", "BIOLOGY", "COMPUTER SCIENCE"];
     } else if (stream === "Commerce") {
       return ["IQ", "ENGLISH", "MATH", "ACCOUNTANCY", "ECONOMICS", "BUISNESS STUDIES", "COMPUTER APPLICATION"];
     } else if (stream === "Arts") {
-      return ["IQ", "ENGLISH", "HISTORY", "GEOGRAPHY", "POLITICAL SCIENCE", "ECONOMICS", "PSYCHOLOGY"];
+      return ["IQ","Bengali", "English", "History", "Political Science", "Education", "Sociology", "Geography"];
     }
     return [];
   };
@@ -25,7 +25,8 @@ function PredictForm() {
     if (cls === "10") return "predict-10";
     if (stream === "Science") return "predict-science";
     if (stream === "Commerce") return "predict-commerce";
-    return ""; // Arts not handled in Flask yet
+    if (stream === "Arts") return "predict-arts";
+    // return ""; // Arts not handled in Flask yet
   };
 
   const handleChange = (e) => {
@@ -49,6 +50,7 @@ function PredictForm() {
       const res = await axios.post(`http://127.0.0.1:5000/${endpoint}`, formData);
       setResult(res.data.prediction);
     } catch (err) {
+      console.log(err.message);
       console.error("Prediction failed:", err.message);
       setResult("Prediction failed");
     }
@@ -56,7 +58,7 @@ function PredictForm() {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Stream Prediction</h2>
+      {/* <h2 className="text-xl font-semibold mb-4">Stream Prediction</h2> */}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <select value={cls} onChange={(e) => {
@@ -86,6 +88,7 @@ function PredictForm() {
           <input
             key={field}
             type="number"
+            min="0" 
             name={field}
             step={field === "IQ" ? "any" : "1"}
             placeholder={`Enter ${field} marks`}
@@ -101,7 +104,7 @@ function PredictForm() {
         </button>
       </form>
 
-      {result && <p className="mt-4 text-green-600 font-semibold">Prediction: {result}</p>}
+      {result && <p className="mt-4 p-2 rounded-lg text-green-600 font-bold text-center bg-blue-200 border border-black">Prediction: {result}</p>}
     </div>
   );
 }

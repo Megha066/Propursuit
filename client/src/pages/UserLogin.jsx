@@ -73,7 +73,7 @@ function UserLogin() {
 
   return (
     <>
-      <div className='flex justify-center items-center my-10'>
+      <div className='flex justify-center items-center my-10 h-full'>
         <div className='bg-blue-50 md:w-160 w-90 p-2 shadow-blue-600 rounded-lg relative flex justify-between items-center'>
           <div className='md:w-100'>
             {state ==='Sign Up'? <img src="/public/Sign up-pana.svg" alt="login" />:
